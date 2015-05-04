@@ -1,0 +1,1099 @@
+#
+
+
+#
+from visual import *
+import threading
+import time
+import random
+import math
+import csaudio
+from csaudio import *
+import wave
+wave.big_endian = 0  # needed in 2015
+
+from visual.controls import * 
+
+from visual import *
+
+
+
+#def gameSpeed():
+
+    #if m.
+
+
+
+#c = controls(title = 'Game Speed',x = 0, y = 10, width = 10, height = 10, range = 10)
+
+#m = menu(color = color.green) 
+
+
+
+intr = text(text='Press SPACE to start', align = 'center',depth = -.3, width = 1, height = 5, materials = materials.wood, color = color.green) 
+
+intr.visible = False 
+
+opt0 = box(pos = (0,0,0), length = 40, height = 3, width = 40)
+
+opt1 = box(pos = (10,0,-15),length = 10, height = 10, width = 5, color = color.green)
+
+opt1Label = label(pos = opt1.pos,text = 'Paddle Slow')
+
+opt2 = box(pos = (10,0,0),length = 10, height = 10, width = 5, color = color.blue)
+
+opt2Label = label(pos = opt2.pos,text = 'Paddle Normal')
+
+opt3 = box(pos = (10,0,15),length = 10, height = 10, width = 5, color = color.black)
+
+opt3Label = label(pos = opt3.pos,text='Paddle Fast')
+
+
+
+#boxes for ball 
+
+bspe1 = box(pos=(-10,0,-15),length = 10, height = 10, width = 5, color = color.green) 
+
+bspe2 = box(pos = (-10,0,0),length = 10, height = 10, width = 5, color = color.blue)
+
+bspe3 = box(pos = (-10,0,15),length = 10, height = 10, width = 5, color = color.black)
+
+bspe1Label = label(pos = bspe1.pos,text = 'Ball Slow')
+
+bspe2Label = label(pos = bspe2.pos,text = 'Ball Normal')
+
+bspe3Label = label(pos = bspe3.pos, text = 'Ball Fast')
+
+
+
+
+
+#def makeOpt():
+
+    #return opt1 
+
+dx=10
+
+bx = 2
+
+bz = -2 
+
+
+
+#def showBspe(evt):
+
+    #print "RUN showBspe", evt.pos
+
+    #global bx 
+
+    #global bz 
+
+    
+
+#scene.bind('click',showBspe)
+
+def play_smoothly( filename ): 
+            """ a test function that plays filename
+            You'll need the filename in this folder!
+
+            To play smoothly, it creates a separate thread
+            and runs the sound in that other thread...
+            """ 
+            t = threading.Thread( target=play, args=(filename,) )
+            t.start()
+
+
+
+
+
+def showOptions(evt):
+
+    print "RUN SHOWOPT", evt.pos
+
+    global dx
+
+    global bx 
+
+    global bz 
+
+
+
+    if bspe1.pos.x - 7 < evt.pos.x and bspe1.pos.x + 7 > evt.pos.x:
+
+        if bspe1.pos.z -5 < evt.pos.z and bspe1.pos.z + 5 > evt.pos.z: 
+
+            print "Ball SLOW"
+
+            play_smoothly('LS2.wav')
+
+            bx = 5
+
+            bz = -3
+
+
+
+    if bspe2.pos.x - 7 < evt.pos.x and bspe2.pos.x + 7 > evt.pos.x: 
+
+        if bspe2.pos.z - 2 < evt.pos.z and bspe2.pos.z + 3 > evt.pos.z: 
+            
+            print "Ball NORMAL"
+
+            play_smoothly('LS1.wav')
+
+            bx = 7
+
+            bz = -4
+
+
+
+    if bspe3.pos.x - 7 < evt.pos.x and bspe3.pos.x + 4 > evt.pos.x: 
+
+        if bspe3.pos.z - 10 < evt.pos.z and bspe3.pos.z + 2  > evt.pos.z: 
+
+            print "Ball FAST"
+            play_smoothly('LS0.wav')
+
+
+
+            bx = 10
+
+            bz = -5
+
+            
+
+
+
+
+
+
+
+    if opt1.pos.x - 7  < evt.pos.x and opt1.pos.x + 7 > evt.pos.x:
+
+        if opt1.pos.z - 5 < evt.pos.z and opt1.pos.z + 10 > evt.pos.z:
+
+            print "SLOW"
+
+            play_smoothly('spam.wav')
+
+            dx=5
+
+            opt0.visible = False
+
+            opt1.visible = False
+
+            opt2.visible = False
+
+            opt3.visible = False 
+
+            opt1Label.visible = False
+
+            opt2Label.visible = False
+
+            opt3Label.visible = False 
+
+            bspe1.visible = False
+
+            bspe2.visible = False
+
+            bspe3.visible = False 
+
+            bspe1Label.visible = False 
+
+            bspe2Label.visible = False
+
+            bspe3Label.visible = False 
+
+            intr.visible = True
+
+
+            #return dx
+
+
+
+
+
+    if opt2.pos.x - 10 < evt.pos.x and opt2.pos.x + 10 > evt.pos.x: 
+
+        if opt2.pos.z - 4 < evt.pos.z and opt2.pos.z + 2 > evt.pos.z: 
+
+            print "MED"
+
+            play_smoothly('Evs.wav')
+
+            dx=7
+
+            opt0.visible = False
+
+            opt1.visible = False
+
+            opt2.visible = False
+
+            opt3.visible = False 
+
+            opt1Label.visible = False
+
+            opt2Label.visible = False
+
+            opt3Label.visible = False
+
+            bspe1.visible = False
+
+            bspe2.visible = False
+
+            bspe3.visible = False 
+
+            bspe1Label.visible = False 
+
+            bspe2Label.visible = False
+
+            bspe3Label.visible = False 
+
+            intr.visible = True
+            
+
+            #return dx
+
+    if opt3.pos.x - 4 < evt.pos.x and opt3.pos.x + 10 > evt.pos.x: 
+
+        if opt3.pos.z - 10 < evt.pos.z and opt3.pos.z + 6 > evt.pos.z: 
+
+
+            print "FAST!"
+
+            play_smoothly('alien.wav')
+
+            dx=15
+
+            opt0.visible = False
+
+            opt1.visible = False
+
+            opt2.visible = False
+
+            opt3.visible = False 
+
+            opt1Label.visible = False
+
+            opt2Label.visible = False
+
+            opt3Label.visible = False
+
+            bspe1.visible = False
+
+            bspe2.visible = False
+
+            bspe3.visible = False 
+
+            bspe1Label.visible = False 
+
+            bspe2Label.visible = False
+
+            bspe3Label.visible = False 
+
+            intr.visible = True
+
+            #return dx
+
+
+
+    print 'bx', bx 
+
+    print 'bz', bz 
+
+    print 'dx',dx
+
+
+
+scene.bind('click',showOptions)
+
+
+
+
+
+def make_walls():
+
+    """ makes several walls and returns them in a list
+
+        Docs here:  http://vpython.org/contents/docs/box.html
+
+    """
+
+    w0 = box(pos=(-20,0,0), axis=(0,0,1), 
+
+             length=40, width=1, height = 2, color=(.5,.5,.5))
+
+    w1 = box(pos=(0,0,-20), axis=(1,0,0), 
+
+             length=40, width=1, height = 2, color=(.5,.5,.5))
+
+    w2 = box(pos=(0,0,20), axis=(1,0,0), 
+
+             length=40, width=1, height = 2, color=(.5,.5,.5))
+
+    w3 = box(pos=(20,0,0), axis=(0,0,1), 
+
+             length=40, width=1, height = 2, color=(.5,.5,.5))
+
+    list_of_walls = [ w0, w1, w2, w3 ]
+
+    return list_of_walls
+
+    return w0 
+
+
+
+
+
+
+
+brick0 = box( pos=(-18,0,-19),length=4,height=1,width=2,color=color.red)
+
+
+
+brick1 = box( pos=(-14,0,-19),length=4,height=1,width=2,color=(.78,.07,.07))
+
+
+
+brick2 = box( pos=(-10,0,-19),length=4,height=1,width=2,color=color.red)
+
+
+
+brick3 = box( pos=(-6,0,-19),length=4,height=1,width=2,color=(.78,.07,.07))
+
+
+
+brick4 = box( pos=(-2,0,-19),length=4,height=1,width=2,color=color.red)
+
+
+
+brick5 = box( pos=(2,0,-19),length=4,height=1,width=2,color=(.78,.07,.07))
+
+
+
+brick6 = box( pos=(6,0,-19),length=4,height=1,width=2,color=color.red)
+
+
+
+brick7 = box( pos=(10,0,-19),length=4,height=1,width=2,color=(.78,.07,.07))
+
+
+
+brick8 = box( pos=(14,0,-19),length=4,height=1,width=2,color=color.red)
+
+
+
+brick9 = box( pos=(18,0,-19),length=4,height=1,width=2,color=(.78,.07,.07))
+
+
+
+brick10 = box( pos=(-18,0,-17),length=4,height=1,width=2,color=(1,.72,.16))
+
+
+
+brick11 = box( pos=(-14,0,-17),length=4,height=1,width=2,color=color.orange)
+
+
+
+brick12 = box( pos=(-10,0,-17),length=4,height=1,width=2,color=(1,.72,.16))
+
+
+
+brick13 = box( pos=(-6,0,-17),length=4,height=1,width=2,color=color.orange)
+
+
+
+brick14 = box( pos=(-2,0,-17),length=4,height=1,width=2,color=(1,.72,.16))
+
+
+
+brick15 = box( pos=(2,0,-17),length=4,height=1,width=2,color=color.orange)
+
+
+
+brick16 = box( pos=(6,0,-17),length=4,height=1,width=2,color=(1,.72,.16))
+
+
+
+brick17 = box( pos=(10,0,-17),length=4,height=1,width=2,color=color.orange)
+
+
+
+brick18 = box( pos=(14,0,-17),length=4,height=1,width=2,color=(1,.72,.16))
+
+
+
+brick19 = box( pos=(18,0,-17),length=4,height=1,width=2,color=color.orange)
+
+
+
+brick20 = box( pos=(-18,0,-15),length=4,height=1,width=2,color=color.yellow)
+
+
+
+brick21 = box( pos=(-14,0,-15),length=4,height=1,width=2,color=(.9,.9,.18))
+
+
+
+brick22 = box( pos=(-10,0,-15),length=4,height=1,width=2,color=color.yellow)
+
+
+
+brick23 = box( pos=(-6,0,-15),length=4,height=1,width=2,color=(.9,.9,.18))
+
+
+
+brick24 = box( pos=(-2,0,-15),length=4,height=1,width=2,color=color.yellow)
+
+
+
+brick25 = box( pos=(2,0,-15),length=4,height=1,width=2,color=(.9,.9,.18))
+
+
+
+brick26 = box( pos=(6,0,-15),length=4,height=1,width=2,color=color.yellow)
+
+
+
+brick27 = box( pos=(10,0,-15),length=4,height=1,width=2,color=(.9,.9,.18))
+
+
+
+brick28 = box( pos=(14,0,-15),length=4,height=1,width=2,color=color.yellow)
+
+
+
+brick29 = box( pos=(18,0,-15),length=4,height=1,width=2,color=(.9,.9,.18))
+
+
+
+brick30 = box( pos=(-18,0,-13),length=4,height=1,width=2,color=(.08,.95,.51))
+
+
+
+brick31 = box( pos=(-14,0,-13),length=4,height=1,width=2,color=color.green)
+
+
+
+brick32 = box( pos=(-10,0,-13),length=4,height=1,width=2,color=(.08,.95,.51))
+
+
+
+brick33 = box( pos=(-6,0,-13),length=4,height=1,width=2,color=color.green)
+
+
+
+brick34 = box( pos=(-2,0,-13),length=4,height=1,width=2,color=(.08,.95,.51))
+
+
+
+brick35 = box( pos=(2,0,-13),length=4,height=1,width=2,color=color.green)
+
+
+
+brick36 = box( pos=(6,0,-13),length=4,height=1,width=2,color=(.08,.95,.51))
+
+
+
+brick37 = box( pos=(10,0,-13),length=4,height=1,width=2,color=color.green)
+
+
+
+brick38 = box( pos=(14,0,-13),length=4,height=1,width=2,color=(.08,.95,.51))
+
+
+
+brick39 = box( pos=(18,0,-13),length=4,height=1,width=2,color=color.green)
+
+
+
+brick40 = box( pos=(-18,0,-11),length=4,height=1,width=2,color=color.blue)
+
+
+
+brick41 = box( pos=(-14,0,-11),length=4,height=1,width=2,color=(.13,.02,.76))
+
+
+
+brick42 = box( pos=(-10,0,-11),length=4,height=1,width=2,color=color.blue)
+
+
+
+brick43 = box( pos=(-6,0,-11),length=4,height=1,width=2,color=(.13,.02,.76))
+
+
+
+brick44 = box( pos=(-2,0,-11),length=4,height=1,width=2,color=color.blue)
+
+
+
+brick45 = box( pos=(2,0,-11),length=4,height=1,width=2,color=(.13,.02,.76))
+
+
+
+brick46 = box( pos=(6,0,-11),length=4,height=1,width=2,color=color.blue)
+
+
+
+brick47 = box( pos=(10,0,-11),length=4,height=1,width=2,color=(.13,.02,.76))
+
+
+
+brick48 = box( pos=(14,0,-11),length=4,height=1,width=2,color=color.blue)
+
+
+
+brick49 = box( pos=(18,0,-11),length=4,height=1,width=2,color=(.13,.02,.76))
+
+
+
+brick50 = box( pos=(-18,0,-9),length=4,height=1,width=2,color=(.38,.91,.95))
+
+
+
+brick51 = box( pos=(-14,0,-9),length=4,height=1,width=2,color=color.cyan)
+
+
+
+brick52 = box( pos=(-10,0,-9),length=4,height=1,width=2,color=(.38,.91,.95))
+
+
+
+brick53 = box( pos=(-6,0,-9),length=4,height=1,width=2,color=color.cyan)
+
+
+
+brick54 = box( pos=(-2,0,-9),length=4,height=1,width=2,color=(.38,.91,.95))
+
+
+
+brick55 = box( pos=(2,0,-9),length=4,height=1,width=2,color=color.cyan)
+
+
+
+brick56 = box( pos=(6,0,-9),length=4,height=1,width=2,color=(.38,.91,.95))
+
+
+
+brick57 = box( pos=(10,0,-9),length=4,height=1,width=2,color=color.cyan)
+
+
+
+brick58 = box( pos=(14,0,-9),length=4,height=1,width=2,color=(.38,.91,.95))
+
+
+
+brick59 = box( pos=(18,0,-9),length=4,height=1,width=2,color=color.cyan)
+
+
+
+brick60 = box( pos=(-18,0,-7),length=4,height=1,width=2,color=color.magenta)
+
+
+
+brick61 = box( pos=(-14,0,-7),length=4,height=1,width=2,color=(.87,.24,.64))
+
+
+
+brick62 = box( pos=(-10,0,-7),length=4,height=1,width=2,color=color.magenta)
+
+
+
+brick63 = box( pos=(-6,0,-7),length=4,height=1,width=2,color=(.87,.24,.64))
+
+
+
+brick64 = box( pos=(-2,0,-7),length=4,height=1,width=2,color=color.magenta)
+
+
+
+brick65 = box( pos=(2,0,-7),length=4,height=1,width=2,color=(.87,.24,.64))
+
+
+
+brick66 = box( pos=(6,0,-7),length=4,height=1,width=2,color=color.magenta)
+
+
+
+brick67 = box( pos=(10,0,-7),length=4,height=1,width=2,color=(.87,.24,.64))
+
+
+
+brick68 = box( pos=(14,0,-7),length=4,height=1,width=2,color=color.magenta)
+
+
+
+brick69 = box( pos=(18,0,-7),length=4,height=1,width=2,color=(.87,.24,.64))
+
+
+
+Lbrick = [ brick0, brick1, brick2, brick3, brick4, brick5, brick6, brick7, brick8, brick9, brick10, brick11, brick12, brick13, brick14,brick15,brick16,brick17,brick18,brick19,brick20,brick21,brick22,brick23,brick24,brick25,brick26,brick27,brick28,brick29,brick30,brick31,brick32,brick33,brick34,brick35,brick36,brick37,brick38,brick39,brick40,brick41,brick42,brick43,brick44,brick45,brick46,brick47,brick48,brick49,brick50,brick51,brick52,brick53,brick54,brick55,brick56,brick57,brick58,brick59,brick60,brick61,brick62,brick63,brick64,brick65,brick66,brick67,brick68,brick69]
+
+
+
+ball = sphere(pos=(0,0,5),radius=0.5)
+
+
+
+def make_pat():
+
+    """ makes the board the ball gets hit off"""
+
+    pat = box(pos=(0,0,16), length = 2, height = 1, width = 1, color=(0,229,238))
+
+    return pat 
+
+
+
+def main():
+
+    """ this is the main function, including
+
+        all of the data objects and the "event loop"
+
+        which is the while True: loop that will
+
+        be the universe's "time stream" :-)
+
+        - with acknowledgments to Profs. Lynn and Sahakian
+
+          for the use of the universe's time stream!
+
+    """
+
+    #def collide(b): 
+
+    #    if b == 42:
+
+    #        return False 
+
+    #    vec_from_ball_to_brick = b.pos - ball.pos
+
+    #    if mag(vec_from_ball_to_brick) < ball.radius:
+
+    #        return True 
+
+    
+
+
+
+        #if ball.pos.z <= pat.pos.z+1 and ball.pos.z >= pat.pos.z-1:
+
+        #    print ball.vel.z
+
+        #    if ball.pos.x+.5 <= pat.pos.x+2 and ball.pos.x-.5 >= pat.pos.x-2:
+
+        #        print ball.vel.z
+
+        #        ball.vel.z = -1*ball.vel.z
+
+
+
+   #CHOOSE PAT SPEED 
+
+    #psp = raw_input('Choose your speed - slow, normal, fast ')
+
+    #if psp == 'slow':
+
+    #    dx = 5
+
+    #if psp == 'normal':
+
+    #    dx = 7
+
+    #if psp == 'fast':
+
+    #    dx = 10 
+
+    # create an object named floor of class (type) box:
+
+    floor = box(pos=(0,-1,0), length=40, width=40, height = 0.5, color=(255,204,255))
+
+
+
+    # this creates a list of walls 
+
+    Walls = make_walls()
+
+    w0, w1, w2, w3 = Walls   # gives each one a name...
+
+
+
+
+
+
+
+
+
+    num_bricks = 70
+
+
+
+    brick0.vel = vector(0,0,0)  # no velocity (yet!)
+
+
+
+    brick1.vel = vector(0,0,0)
+
+
+
+    ball.vel = vector(0,0,0)    
+
+    
+
+    pat = make_pat()
+
+    pat.vel=vector(dx,0,0)
+
+
+
+    # color names? they are black, blue, cyan, green, gray(v), 0.0<=v<=1.0
+
+    #                       magenta, orange, red, white, yellow
+
+    # or you can use rgb tuples (from 0.0 to 1.0, not 0 to 255), e.g.,
+
+
+
+    # You can add any data attribute to any object any time!
+
+    ball.vel = vector(0,0,0)
+
+    pat.vel = vector(dx,0,0)
+
+    # We set some variables to control the display and the event loop
+
+    RATE = 30             # number of loops per second to run, if possible!
+
+    dt = 1.0/RATE         # the amount of time per loop (again, if possible)
+
+    autocenter = True     # do you want vPython to keep the scene centered?
+
+
+
+    # this is the main loop of the program! it's "time" or the "event loop"
+
+    while True:
+
+        rate(RATE)     # run no faster than RATE loops/second
+
+
+
+        # +++++ start all position updates +++++ 
+
+
+
+       # PHYSICS!
+
+        ball.pos = ball.pos + ball.vel*dt
+
+        pat.pos = pat.pos + pat.vel*dt 
+
+        # +++++ end of position updates +++++ 
+
+
+
+
+
+
+
+        # ----- start of other checks - especially *collisions* -----
+
+
+
+        # collision check for the ball and alien...
+
+        # vector docs:   http://vpython.org/contents/docs/vector.html
+
+        #vec_from_rings_to_brick = brick.pos - rings.pos
+
+        #if mag( vec_from_rings_to_brick ) < rings.pos:
+
+            #print "Killed Block 0"
+
+            #brick.vel = vector(0,0,0)
+
+        # need to handle wall collisions here!
+
+        #vec_from_rings_to_brick1 = brick1.pos - rings.pos
+
+        #if mag( vec_from_rings_to_brick1 ) < rings.pos:
+
+        #    print "Killed block 1"
+
+        #    brick1.vel = vector(0,5,0)
+
+
+        
+
+        
+
+        def collide(b): 
+
+            if b == 42:
+
+                return False 
+
+            #vec_from_ball_to_brick = b.pos - ball.pos
+
+            #if mag(vec_from_ball_to_brick) <= ball.radius:
+
+                #return True 
+
+            #BOTTOM COLLISION!!!! 
+
+            if b.pos.x - 2 < ball.pos.x and b.pos.x + 2 > ball.pos.x: 
+
+                if b.pos.z - 1 < ball.pos.z - .5 and b.pos.z + 1 > ball.pos.z+.5: 
+
+                    return True 
+
+            #SIDE COLLISION!!!
+
+            if b.pos.z - 1 < ball.pos.z and b.pos.z + 1 > ball.pos.z:
+
+                if b.pos.x -2 < ball.pos.x-.5 and b.pos.x +2 > ball.pos.x-.5: 
+
+                    return True 
+
+
+
+        for i in range(len(Lbrick)):
+
+            if collide(Lbrick[i]) == True: 
+
+                print "Killed"
+
+                play_smoothly('pewnew.wav')
+
+                ball.vel.z = -1*ball.vel.z
+
+                Lbrick[i].visible = False 
+
+                b = Lbrick[i] 
+
+                b = 42 
+
+                num_bricks -= 1
+
+                del Lbrick[i]
+
+                print "You have ",len(Lbrick),"bricks remaining"
+
+                break 
+
+
+
+        """ for the ball bouncing off walls"""
+
+            #rings 
+
+        if ball.pos.x < Walls[0].pos.x: 
+
+            play_smoothly('Boing.wav')
+            ball.vel.x = -1*ball.vel.x 
+
+            ball.pos.x = Walls[0].pos.x
+
+        
+
+        if ball.pos.z > Walls[2].pos.z: 
+
+
+            print ball.vel
+
+
+            
+
+            ball.vel.z = -1*ball.vel.z 
+
+            ball.pos.z = Walls[2].pos.z
+
+        
+
+        if ball.pos.x > Walls[3].pos.x: 
+
+
+            ball.vel.x = -1*ball.vel.x 
+
+
+            ball.pos.x = Walls[3].pos.x
+
+        
+
+        if ball.pos.z < Walls[1].pos.z: 
+
+            
+            ball.vel.z = -1*ball.vel.z 
+
+            ball.pos.z = Walls[1].pos.z
+
+        
+
+        """ for pat bouncing off walls """ 
+
+
+
+        if pat.pos.x < Walls[0].pos.x+1:
+
+            pat.pos.x = Walls[0].pos.x+1
+
+            pat.vel = vector(0,0,0)
+            play_smoothly('Boom.wav')
+
+
+
+        if pat.pos.x > Walls[3].pos.x-1:
+
+            pat.pos.x = Walls[3].pos.x-1  
+
+            pat.vel = vector(0,0,0)
+            play_smoothly('Boom.wav')
+
+
+
+
+
+        """ for ball bouncing off pat """ 
+
+        if ball.pos.z <= pat.pos.z+1 and ball.pos.z >= pat.pos.z-1:
+
+            if ball.pos.x+.5 <= pat.pos.x+2 and ball.pos.x-.5 >= pat.pos.x-2:
+
+                ball.vel.z = -1*ball.vel.z
+
+
+        
+
+        if ball.pos.z > pat.pos.z + 3: 
+
+            text(text='Game Over!', align = 'center',depth = 5, width = 5, height = 5, materials = materials.wood, color = color.green) 
+            play_smoothly('Boohoo.wav')
+            print "GAME OVER!"
+
+            print num_bricks,'blocks remaining'
+
+            return "GAME OVER"
+
+
+
+
+
+        # ----- end of other checks - especially *collisions*  -----
+
+
+
+
+
+
+
+
+
+        # ===== handling user events: keypresses and mouse =====
+
+
+
+        # here, we see if the user has pressed any keys
+
+
+
+
+
+        if scene.kb.keys:   # any keypress to be handled?
+
+            s = scene.kb.getkey()
+
+            print "You pressed the key", s
+
+
+
+            # Key presses to give the ball velocity (in the x-z plane)
+
+            #dx = 5; dz = 5   # easily-changeable values
+
+            
+
+            if s == ' ':
+
+                ball.vel = vector(bx,0,bz)
+
+                intr.visible = False 
+
+            if s == 'left':
+
+                pat.vel = vector(0,0,0)
+
+                pat.vel += vector(-dx,0,0)
+
+            if s == 'right':
+
+                pat.vel = vector(0,0,0)
+
+                pat.vel += vector(dx,0,0)
+
+            # space to stop everything
+
+            #if s == ' ':  # space!
+
+                #ball.vel = vector(0,0,0)
+
+                #brick.vel = vector(0,0,0)
+
+
+
+            if s == 'Q':  # Quit!
+
+                print "Quitting..."
+
+                break  # breaks out of the main loop
+
+
+
+            # mouse is better handled only when a particular key is pressed
+
+            # see http://vpython.org/contents/docs/mouse.html for more
+
+
+
+        # ===== end of handling user events: keypresses and mouse =====
+
+        if len(Lbrick) == 0: 
+
+            print "GAME OVER!!! -- YOU WIN!!!!"
+
+    print "Done with the main loop. Ending this vPython session..."
+
+    print "Close the vPython window to finish."
+
+# this ends the main() function - it tends to get large!
+
+
+
+
+
+
+
+
+
+# This should be the FINAL thing in the file...
+
+if __name__ == "__main__":   # did we just RUN this file?
+
+    main()                   # if so, we call main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
